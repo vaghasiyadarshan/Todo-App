@@ -23,10 +23,13 @@ function Step1({ onNext }) {
     FirstName: yup.string().required('FirstName is required.'),
     company: yup.string().required('Company is required.'),
     email: yup.string().email('INVALID EMAIL').required('Email is required'),
+
     phone: yup
       .string()
-      .matches(phoneRegExp, 'Phone number is not valid')
-      .required('Phone number is requied')
+      .matches(phoneRegExp, 'Invalid phone')
+      .max(10, 'must be 10')
+      .min(10, 'must be 10')
+      .required('Phone is required')
   });
   const formik = useFormik({
     initialValues: {
@@ -92,6 +95,7 @@ function Step1({ onNext }) {
               icon={<PhoneIphoneOutlinedIcon />}
               placeholder="(123) 456 - 7890"
               name="phone"
+              type="number"
               label="phone Number"
               value={formik.values.phone}
               onChange={formik.handleChange}
