@@ -1,91 +1,169 @@
-import { Button, Stack, TextField } from '@mui/material';
+import {
+  Box,
+  Button,
+  FormControl,
+  FormControlLabel,
+  Grid,
+  Radio,
+  RadioGroup,
+  Stack,
+  Typography
+} from '@mui/material';
 import React from 'react';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
-function Step3({ onNext,onPrevious }) {
-    const validationSchema = yup.object({
-        address: yup.string().required('Address is required.'),
-        pinCode: yup.string()
-            .required()
-            .matches(/^[0-9]+$/, "Must be only digits")
-            .min(5, 'Must be exactly 5 digits')
-            .max(5, 'Must be exactly 5 digits')
-    });
-    const formik = useFormik({
-        initialValues: {
-            address: '',
-            pinCode: ''
-        },
-        validationSchema: validationSchema,
-        validateOnChange: false,
+import CustomizedButtons from '../../Components/CommonButton';
+import { useDispatch } from 'react-redux';
+import { pushData } from '../../Store/FromSlice';
 
-        onSubmit: (values) => {
-            onNext()
-            console.log(values)
-        }
-    });
+function Step3({ onNext, onPrevious }) {
+  const [value, setValue] = React.useState('$5.000 - $10.000');
+  const dispatch = useDispatch();
 
-    return (
-        <form onSubmit={formik.handleSubmit}>
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
 
-            <>
-                <Stack spacing={3}>
+  const handlePushData = () => {
+    dispatch(pushData(value));
+  };
 
-                    <TextField
-                        name="address"
-                        label="Address"
-                        value={formik.values.address}
-                        onChange={formik.handleChange}
-                        error={!!formik.errors.address}
-                        helperText={formik.errors.address}
-                    />
-                    <TextField
-                        name="pinCode"
-                        label="Pin Code"
-                        value={formik.values.pinCode}
-                        onChange={formik.handleChange}
-                        error={!!formik.errors.pinCode}
-                        helperText={formik.errors.pinCode}
-                    />
+  return (
+    <>
+      <FormControl>
+        <RadioGroup
+          aria-labelledby="demo-radio-buttons-group-label"
+          name="radio-buttons-group"
+          value={value}
+          onChange={handleChange}
+        >
+          <Grid container spacing={4}>
+            <Grid item xs={12}>
+              <Typography variant="h5" fontWeight="600" mb={2}>
+                Our services
+              </Typography>
+              <Typography mb={3}>
+                Please select which service you are interested in.
+              </Typography>
+            </Grid>
+            <Grid items xs={12} md={6}>
+              <Stack p={3}>
+                <Box
+                  borderRadius={5}
+                  // border={selectItems === 'Development' ? '3px solid blue' : ''}
+                  sx={{ boxShadow: '0px 4px 10px 0px #1F255912' }}
+                  width="284px"
+                  height="114px"
+                  display="flex"
+                  pl={5}
 
-                </Stack>
-                <Stack mt={5} mb={2}>
-                    <Button
-                        style={{
-                            textTransform: 'none',
-                            borderRadius: '4px',
-                            backgroundColor: '#3E083B',
-                            color: 'white',
-                            width: '100%'
-                        }}
-                        className="button-container"
-                        sx={{ fontSize: '18px', fontWeight: 600 }}
-
-                        type="submit" 
-                    >
-                        Submit
-                    </Button>
-                </Stack>
-                     <Stack mt={5} mb={2}>
-                      <Button
-                        style={{
-                          textTransform: 'none',
-                          borderRadius: '4px',
-                          backgroundColor: '#3E083B',
-                          color: 'white',
-                          width: '100%'
-                        }}
-                        className="button-container"
-                        sx={{ fontSize: '18px', fontWeight: 600 }}
-
-                        onClick={onPrevious}
-                      >
-                        Back
-                      </Button>
-                    </Stack>
-            </>
-        </form>
-    );
+                  //   alignItems="center"
+                  //   justifyContent="center"
+                >
+                  <FormControlLabel
+                    defaultChecked
+                    value="$5.000 - $10.000"
+                    control={<Radio />}
+                    label="$5.000 - $10.000"
+                  />
+                </Box>
+              </Stack>
+            </Grid>
+            <Grid items xs={12} md={6}>
+              <Stack p={3}>
+                <Box
+                  borderRadius={5}
+                  // border={selectItems === 'Development' ? '3px solid blue' : ''}
+                  sx={{ boxShadow: '0px 4px 10px 0px #1F255912' }}
+                  width="284px"
+                  height="114px"
+                  display="flex"
+                  pl={5}
+                >
+                  <FormControlLabel
+                    value="$10.000 - $20.000"
+                    control={<Radio />}
+                    label="$10.000 - $20.000"
+                  />
+                </Box>
+              </Stack>
+            </Grid>
+            <Grid items xs={12} md={6}>
+              <Stack p={3}>
+                <Box
+                  borderRadius={5}
+                  // border={selectItems === 'Development' ? '3px solid blue' : ''}
+                  sx={{ boxShadow: '0px 4px 10px 0px #1F255912' }}
+                  width="284px"
+                  height="114px"
+                  display="flex"
+                  pl={5}
+                >
+                  <FormControlLabel
+                    value="$20.000 - $50.000"
+                    control={<Radio />}
+                    label="$20.000 - $50.000"
+                  />
+                </Box>
+              </Stack>
+            </Grid>
+            <Grid items xs={12} md={6}>
+              <Stack p={3}>
+                <Box
+                  borderRadius={5}
+                  // border={selectItems === 'Development' ? '3px solid blue' : ''}
+                  sx={{ boxShadow: '0px 4px 10px 0px #1F255912' }}
+                  width="284px"
+                  height="114px"
+                  display="flex"
+                  pl={5}
+                >
+                  <FormControlLabel
+                    value="$50.000 +"
+                    control={<Radio />}
+                    label="$50.000 +"
+                  />
+                </Box>
+              </Stack>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Button
+                variant="outlined"
+                style={{
+                  color: '#4A3AFF',
+                  borderRadius: '60px',
+                  borderColor: '#4A3AFF',
+                  '&:hover': {
+                    backgroundColor: '#F3F1FF'
+                  },
+                  fontSize: '16x', // Set the font size here
+                  minWidth: '195px',
+                  height: '50px'
+                }}
+                onClick={() => onPrevious()}
+              >
+                Next step
+              </Button>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              md={6}
+              display="flex"
+              justifyContent={{ md: 'flex-end', xs: 'flex-start' }}
+            >
+              <CustomizedButtons
+                onClick={() => {
+                  onNext();
+                  handlePushData();
+                }}
+              >
+                Next step
+              </CustomizedButtons>
+            </Grid>
+          </Grid>
+        </RadioGroup>
+      </FormControl>
+    </>
+  );
 }
 
 export default Step3;
