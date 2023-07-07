@@ -15,7 +15,13 @@ const Header = () => {
         p={5}
       >
         <Box>
-          <Typography variant="h4">Aimbrill Techinfo</Typography>
+          <Typography
+            variant="h4"
+            onClick={() => navigate('/')}
+            sx={{ cursor: 'pointer' }}
+          >
+            Aimbrill Techinfo
+          </Typography>
         </Box>
         <Box>
           <CustomizedButtons onClick={() => navigate('/EmployeeList')}>

@@ -2,8 +2,11 @@ import { Box, Divider, Stack, Typography } from '@mui/material';
 import React from 'react';
 import CommonInput from './CommonInput';
 import CustomizedButtons from './CommonButton';
+import { useNavigate } from 'react-router-dom';
 
 const Footer = () => {
+  const navigate = useNavigate();
+
   return (
     <Box widht="100%" height="155px">
       <Divider />
@@ -14,8 +17,8 @@ const Footer = () => {
         justifyContent="space-between"
         p={5}
       >
-        <Stack>
-          <Typography variant="h4">Aimbrill Techinfo</Typography>
+        <Stack onClick={() => navigate('/')}>
+          <Typography variant="h4" sx={{cursor:'pointer'}}>Aimbrill Techinfo</Typography>
           <Typography variant="body1" color="gray">
             Copyright © 2021 Aimbrill Techinfo | All Rights Reserved
           </Typography>
