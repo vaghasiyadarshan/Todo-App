@@ -23,9 +23,9 @@ const TaskList = () => {
     }, 2000);
   };
   const addTask = (task) => {
-    const updatedTasks = [...tasks, task];
-    setTasks(updatedTasks);
-    localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+    const Tasks = [...tasks, task];
+    setTasks(Tasks);
+    localStorage.setItem('tasks', JSON.stringify(Tasks));
   };
 
   const updateTask = (taskId, updatedTask) => {
@@ -33,12 +33,13 @@ const TaskList = () => {
       task.id === taskId ? { ...task, ...updatedTask } : task
     );
     setTasks(updatedTasks);
+    localStorage.setItem('tasks', JSON.stringify(updatedTasks));
   };
 
   const deleteTask = (taskId) => {
-    const updatedTasks = tasks.filter((task) => task.id !== taskId);
-    setTasks(updatedTasks);
-    localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+    const deleteTasks = tasks.filter((task) => task.id !== taskId);
+    setTasks(deleteTasks);
+    localStorage.setItem('tasks', JSON.stringify(deleteTasks));
   };
 
   return (
