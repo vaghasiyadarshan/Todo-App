@@ -1,7 +1,11 @@
 import React from 'react';
 import { Box, Button, Card, Grid, Stack, Typography } from '@mui/material';
+import AlertDialog from '../Components/UpdateTaskModel';
+import { useState } from 'react';
 
 const TaskListGrid = ({ tasks, updateTask, deleteTask }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [taskData, setTaskData] = useState('');
   const handleStatusChange = (task) => {
     let updatedStatus = '';
     switch (task.status) {
@@ -105,6 +109,15 @@ const TaskListGrid = ({ tasks, updateTask, deleteTask }) => {
                     </Button>
                     <Button
                       variant="contained"
+                      onClick={() => {
+                        setIsOpen(true);
+                        setTaskData(task);
+                      }}
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      variant="contained"
                       onClick={() => handleDelete(task)}
                     >
                       Delete
@@ -116,6 +129,12 @@ const TaskListGrid = ({ tasks, updateTask, deleteTask }) => {
           ))}
         </Grid>
       </Box>
+      <AlertDialog
+        setOpen={setIsOpen}
+        open={isOpen}
+        taskData={taskData}
+        updateTask={updateTask}
+      />
     </>
   );
 };

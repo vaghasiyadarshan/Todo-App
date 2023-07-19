@@ -1,9 +1,17 @@
-import { Button, Grid, MenuItem, Select, TextField } from '@mui/material';
+import {
+  Button,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField
+} from '@mui/material';
 import React, { useState } from 'react';
 
 const TaskForm = ({ addTask }) => {
   const [taskName, setTaskName] = useState('');
-  const [priority, setPriority] = useState('low');
+  const [priority, setPriority] = useState('Low');
   const [status, setStatus] = useState('To do');
 
   const handleTaskNameChange = (e) => {
@@ -26,7 +34,7 @@ const TaskForm = ({ addTask }) => {
       };
       addTask(newTask);
       setTaskName('');
-      setPriority('low');
+      setPriority('Low');
       setStatus('To do');
     }
   };
@@ -47,16 +55,21 @@ const TaskForm = ({ addTask }) => {
             />
           </Grid>
           <Grid item xs={12} md={4}>
-            <Select
-              fullWidth
-              label="Priority"
-              value={priority}
-              onChange={handlePriorityChange}
-            >
-              <MenuItem value="low">Low</MenuItem>
-              <MenuItem value="medium">Medium</MenuItem>
-              <MenuItem value="high">High</MenuItem>
-            </Select>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Priority</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                label="Priority"
+                fullWidth
+                value={priority}
+                onChange={handlePriorityChange}
+              >
+                <MenuItem value="Low">Low</MenuItem>
+                <MenuItem value="Medium">Medium</MenuItem>
+                <MenuItem value="High">High</MenuItem>
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={12} md={4}>
             <Button

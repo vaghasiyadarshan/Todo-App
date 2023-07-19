@@ -1,21 +1,13 @@
-// // TaskListList.js
-// import React from 'react';
-
-// const TaskListList = () => {
-//   return (
-//     <div>
-//       <h2>List View</h2>
-//     </div>
-//   );
-// };
-
-// export default TaskListList;
 import React, { useState } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { Box, Card, IconButton, Typography } from '@mui/material';
+import { Box, Card, IconButton, Tooltip, Typography } from '@mui/material';
+import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
 import { DataGrid } from '@mui/x-data-grid';
+import AlertDialog from '../Components/UpdateTaskModel';
 const TaskListList = ({ tasks, deleteTask, updateTask }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [taskData, setTaskData] = useState('');
   const handleStatusChange = (task) => {
     let updatedStatus = '';
     switch (task.status) {
@@ -141,12 +133,26 @@ const TaskListList = ({ tasks, deleteTask, updateTask }) => {
                 display: 'flex'
               }}
             >
-              <IconButton onClick={() => handleStatusChange(row)}>
-                <EditIcon />
-              </IconButton>
-              <IconButton onClick={() => handleDelete(row)}>
-                <DeleteIcon />
-              </IconButton>
+              <Tooltip title="To DO">
+                <IconButton onClick={() => handleStatusChange(row)}>
+                  <ChangeCircleIcon />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Edit">
+                <IconButton
+                  onClick={() => {
+                    setIsOpen(true);
+                    setTaskData(row);
+                  }}
+                >
+                  <EditIcon />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Delete">
+                <IconButton onClick={() => handleDelete(row)}>
+                  <DeleteIcon />
+                </IconButton>
+              </Tooltip>
             </Box>
           </Box>
         );
@@ -193,6 +199,12 @@ const TaskListList = ({ tasks, deleteTask, updateTask }) => {
         />
         {/* </CardContent> */}
       </Card>
+      <AlertDialog
+        setOpen={setIsOpen}
+        open={isOpen}
+        taskData={taskData}
+        updateTask={updateTask}
+      />
     </Box>
   );
 };
