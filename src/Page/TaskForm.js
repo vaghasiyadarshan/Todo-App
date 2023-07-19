@@ -1,5 +1,6 @@
 import {
   Button,
+  CircularProgress,
   FormControl,
   Grid,
   InputLabel,
@@ -13,6 +14,7 @@ const TaskForm = ({ addTask }) => {
   const [taskName, setTaskName] = useState('');
   const [priority, setPriority] = useState('Low');
   const [status, setStatus] = useState('To do');
+  const [lodding, setLodding] = useState(false);
 
   const handleTaskNameChange = (e) => {
     setTaskName(e.target.value);
@@ -32,10 +34,14 @@ const TaskForm = ({ addTask }) => {
         priority,
         status
       };
-      addTask(newTask);
-      setTaskName('');
-      setPriority('Low');
-      setStatus('To do');
+      setLodding(true);
+      setTimeout(() => {
+        addTask(newTask);
+        setTaskName('');
+        setPriority('Low');
+        setStatus('To do');
+        setLodding(false);
+      }, 2000);
     }
   };
 
@@ -78,7 +84,11 @@ const TaskForm = ({ addTask }) => {
               fullWidth
               sx={{ padding: 2 }}
             >
-              Add Task
+              {lodding ? (
+                <CircularProgress sx={{ color: 'white' }} size={25} />
+              ) : (
+                'Add Task'
+              )}
             </Button>
           </Grid>
         </Grid>
