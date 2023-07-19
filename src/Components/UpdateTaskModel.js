@@ -7,6 +7,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useState } from 'react';
 import {
+  CircularProgress,
   FormControl,
   Grid,
   InputLabel,
@@ -22,6 +23,7 @@ export default function AlertDialog({ open, setOpen, taskData, updateTask }) {
   };
   const [taskName, setTaskName] = useState('');
   const [priority, setPriority] = useState('');
+  const [islodding, setIsLodding] = useState(false);
 
   useEffect(() => {
     setTaskName(taskData?.name ?? '');
@@ -37,8 +39,12 @@ export default function AlertDialog({ open, setOpen, taskData, updateTask }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateTask(taskData.id, { name: taskName, priority: priority });
-    setOpen(false);
+    setIsLodding(true);
+    setTimeout(() => {
+      setIsLodding(false);
+      updateTask(taskData.id, { name: taskName, priority: priority });
+      setOpen(false);
+    }, 2000);
   };
 
   return (
@@ -89,7 +95,11 @@ export default function AlertDialog({ open, setOpen, taskData, updateTask }) {
                   fullWidth
                   sx={{ padding: 2 }}
                 >
-                  Edit Task
+                  {islodding ? (
+                    <CircularProgress sx={{ color: 'white' }} size={25} />
+                  ) : (
+                    'Edit Task'
+                  )}
                 </Button>
               </Grid>
             </Grid>
