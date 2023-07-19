@@ -149,8 +149,21 @@ const TaskListList = ({ tasks, deleteTask, updateTask }) => {
                 </IconButton>
               </Tooltip>
               <Tooltip title="Delete">
-                <IconButton onClick={() => handleDelete(row)}>
-                  <DeleteIcon />
+                <IconButton
+                  onClick={() => handleDelete(row)}
+                  sx={{
+                    ':hover': {
+                      bgcolor: 'red'
+                    }
+                  }}
+                >
+                  <DeleteIcon
+                    sx={{
+                      ':hover': {
+                        color: 'white'
+                      }
+                    }}
+                  />
                 </IconButton>
               </Tooltip>
             </Box>
