@@ -48,7 +48,7 @@ const TaskList = () => {
       <Stack direction="row" justifyContent="space-around" mt={3}>
         <Button variant="contained" onClick={ChangeView}>
           {lodding ? (
-            <CircularProgress color="info" size={25} />
+            <CircularProgress sx={{ color: 'white' }} size={25} />
           ) : view ? (
             'list'
           ) : (
